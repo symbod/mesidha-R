@@ -32,19 +32,23 @@ if (!py_module_available("mqhandler")) {
 mq <- import("mqhandler")
 
 
+# roxygenise();      # Builds the help files
+
 ## Main functions ----
-#' Title
+
+#' Filter Protein IDs
+#' 
+#' Remove decoy IDs, contaminated IDs and / or filter IDs by organism.
 #'
-#' @param data 
+#' @param data a Dataframe with a column containing the protein IDs
 #' @param protein_column name of column with protein IDs
-#' Optional:
-#' @param organism specify organism the ids should match to
-#' @param decoy 
-#' @param action what to do, if IDs cell is empty after filtering. Keep empty cell, delete it or fill it based on gene name.
-#' @param gene_column name of column with gene names
-#' @param reviewed 
+#' @param organism (optional) specify organism the ids should match to
+#' @param decoy (optional) bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept
+#' @param action (optional) what to do, if IDs cell is empty after filtering. Keep empty cell, delete it or fill it based on gene name.
+#' @param gene_column (optional) name of column with gene names
+#' @param reviewed (optional) bool to indicate if newly retrieved protein IDs should be reduced to reviewed ones
 #'
-#' @return
+#' @return filtered Dataframe
 #' @export
 #'
 #' @examples
@@ -59,14 +63,14 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, decoy = FA
 
 ## Smaller functions ----
 
-#' Grep header information
+#' Grep Header Information
 #'
 #' Grep the information,that is stored in the headers inside a 
 #' fasta file, and return them inside a Dataframe. 
 #'
 #' @param fasta the path to the fasta file
 #'
-#' @return a dataframe with the collected information
+#' @return a Dataframe with the collected information
 #' @export
 #'
 #' @examples
