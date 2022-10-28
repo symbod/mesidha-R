@@ -12,25 +12,25 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", eval = FALSE
 )
 ```
 
-```{r loading, include=TRUE, warning=FALSE}
-# LOAD METHODS
-source("../R/mqhandler.R")
-
+```{r loading, include=TRUE, warning=FALSE, message=FALSE}
+  # Install mqhandleR from github and build vignettes
+  if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
+  if(!require("mqhandleR",character.only = TRUE)) devtools::install_github("symbod/MaxQuantHandler-R", build_vignettes = TRUE, dependencies = TRUE)
+  # Load and attach mqhandleR 
+  library("mqhandleR")
 ```
 
 ## Introduction {-}
 
-However, if you want to have only the values found in the headers of the Fasta file separately, you can make the following call.
-
-## Filter protein IDs
+## Filter Protein IDs
 
 ```{r}
 # mandatory
-data = data.table::fread("../example_data/mq-file.txt")
+data = data.table::fread("<file>")
 protein_column = "Protein IDs" # Name of column with protein IDs
 
 # optional 
@@ -45,9 +45,49 @@ decoy = FALSE # Bool to indicate if protein ids from decoy fasta (REV__, CON__) 
 filtered_data <- filter_protein_ids(data = data, protein_column = protein_column, organism = organism,
                                     gene_column = gene_column, action = action, 
                                     reviewed = reviewed, decoy = decoy)
-rmarkdown::paged_table(filtered_data)
 ```
 
+## Remap Gene Names
 
+```{r}
+# mandatory
+data = data.table::fread("<file>")
+mode = "<mode>" #  Mode of refilling. See below for more infos
+protein_column = "Protein IDs" # Name of column with protein IDs
 
+# optional 
+organism = "human" # Specify organism the ids should match to
+protein_column = "Protein IDs" # Name of column with protein IDs
+gene_column = "Gene names" # Name of column with gene names
+skip_filled = TRUE # Bool to indicate if already filled gene names should be skipped
+fasta = "<file>" # Fasta file when mode all or fasta
+```
 
+Modes:
+
+* all - Use primarly fasta infos and additionally uniprot infos.
+* fasta - Use information extracted from fasta headers.
+* uniprot - Use mapping information from uniprot and use all gene names.
+* uniprot_primary - Use mapping information from uniprot and only all primary gene names.
+* uniprot_one - Use mapping information from uniprot and only use most frequent single gene name.
+
+```{r}
+remapped_data <- remap_genenames(data = data, mode = mode, 
+                                 protein_column = protein_column, gene_column = gene_column,
+                                 skip_filled = skip_filled, organism = organism, fasta = fasta)
+```
+
+## Get Orthologs
+
+```{r}
+# mandatory
+data = data.table::fread("<file>")
+source_organism = "rat" # Specify organism the ids should match to
+target_organism = "human" # Specify organism the ids should match to
+gene_column = "Gene names" # Name of column with gene names
+```
+
+```{r}
+ortholog_data <- get_orthologs(data = data, gene_column = gene_column, 
+                               organism = source_organism, tar_organism = target_organism)
+```

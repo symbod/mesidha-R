@@ -2,7 +2,9 @@
 % Please edit documentation in R/mqhandler.R
 \name{filter_protein_ids}
 \alias{filter_protein_ids}
-\title{Title}
+\title{Filter Protein IDs
+
+Remove decoy IDs, contaminated IDs and / or filter IDs by organism.}
 \usage{
 filter_protein_ids(
   data,
@@ -15,24 +17,25 @@ filter_protein_ids(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{a Dataframe with a column containing the protein IDs}
 
-\item{protein_column}{name of column with protein IDs
-Optional:}
+\item{protein_column}{name of column with protein IDs}
 
-\item{organism}{specify organism the ids should match to}
+\item{organism}{(optional) specify organism the ids should match to}
 
-\item{decoy}{}
+\item{decoy}{(optional) bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept}
 
-\item{action}{what to do, if IDs cell is empty after filtering. Keep empty cell, delete it or fill it based on gene name.}
+\item{action}{(optional) what to do, if IDs cell is empty after filtering. Keep empty cell, delete it or fill it based on gene name.}
 
-\item{gene_column}{name of column with gene names}
+\item{gene_column}{(optional) name of column with gene names}
 
-\item{reviewed}{}
+\item{reviewed}{(optional) bool to indicate if newly retrieved protein IDs should be reduced to reviewed ones}
 }
 \value{
-
+filtered Dataframe
 }
 \description{
-Title
+Filter Protein IDs
+
+Remove decoy IDs, contaminated IDs and / or filter IDs by organism.
 }
