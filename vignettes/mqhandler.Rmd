@@ -1,0 +1,53 @@
+---
+title: "mqhandleR - R Package for the python package mqhandler"
+author: Klaudia Adamowicz
+
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r loading, include=TRUE, warning=FALSE}
+# LOAD METHODS
+source("../R/mqhandler.R")
+
+```
+
+## Introduction {-}
+
+However, if you want to have only the values found in the headers of the Fasta file separately, you can make the following call.
+
+## Filter protein IDs
+
+```{r}
+# mandatory
+data = data.table::fread("../example_data/mq-file.txt")
+protein_column = "Protein IDs" # Name of column with protein IDs
+
+# optional 
+organism = "human" # Specify organism the ids should match to
+gene_column = "Gene names" # Name of column with gene names
+action = "delete" # What to do, if IDs cell is empty after filtering. Keep empty cell, delete it or fill it based on gene name.
+reviewed = TRUE # Bool to indicate if newly retrieved protein IDs should be reduced to reviewed ones
+decoy = FALSE # Bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept
+```
+
+```{r}
+filtered_data <- filter_protein_ids(data = data, protein_column = protein_column, organism = organism,
+                                    gene_column = gene_column, action = action, 
+                                    reviewed = reviewed, decoy = decoy)
+rmarkdown::paged_table(filtered_data)
+```
+
+
+
+
