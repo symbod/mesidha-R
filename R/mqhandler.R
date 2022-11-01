@@ -48,7 +48,7 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, decoy = FA
                                           reviewed = reviewed))
 }
 
-## Remap Gene Names
+## Remap Gene Names ----
 
 #' @title Remap Gene Names
 #' 
@@ -81,7 +81,7 @@ remap_genenames <- function(data, mode, protein_column, gene_column = NULL,
                                             organism = organism, fasta = fasta))
 }
 
-### Get Orthologs
+### Get Orthologs ----
 
 #' @title Get Orthologs
 #' 

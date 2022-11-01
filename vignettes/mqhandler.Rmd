@@ -9,6 +9,12 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
+
+
+## Introduction {-}
+
+## Installation {-}
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -24,10 +30,13 @@ knitr::opts_chunk$set(
   library("mqhandleR")
 ```
 
-## Introduction {-}
-
 ## Filter Protein IDs
 
+For a protein assignment using MaxQuant, Fasta files are required. Since MaxQuant can also be used to run several data collectively, it can also happen that results are provided with protein IDs of several organisms. 
+
+This method makes it possible to check the protein IDs for their organism by directly accessing the Uniprot database, and to remove incorrectly assigned IDs.
+
+### Setup
 ```{r}
 # mandatory
 data = data.table::fread("<file>")
@@ -41,18 +50,37 @@ reviewed = TRUE # Bool to indicate if newly retrieved protein IDs should be redu
 decoy = FALSE # Bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept
 ```
 
+### Run 
 ```{r}
 filtered_data <- filter_protein_ids(data = data, protein_column = protein_column, organism = organism,
                                     gene_column = gene_column, action = action, 
                                     reviewed = reviewed, decoy = decoy)
 ```
+### Log Information
+One might be interested to know how many IDs were filtered out, in total and per row. Therefore, with this call, you can generate 2 data frames that display this information as a table.
+
+In addition to the information as a table, it can also be displayed directly as plots with a simple call.
+
 
 ## Remap Gene Names
+
+Besides protein IDs, gene names are also taken out of the respective Fasta files and mapped. These are needed for easier naming in plots and in analytical procedures such as enrichment analysis. Unfortunately, Fasta files are not always complete in terms of gene names. 
+
+This method makes it possible to retrieve the assigned gene names based on the protein IDs with direct access to the Uniprot database and to fill the empty entries in the user file or even replace existing entries. There are multiple possible modes for which Names should be taken.
+
+Modes:
+
+* all - Use primarly fasta infos and additionally uniprot infos.
+* fasta - Use information extracted from fasta headers.
+* uniprot - Use mapping information from uniprot and use all gene names.
+* uniprot_primary - Use mapping information from uniprot and only all primary gene names.
+* uniprot_one - Use mapping information from uniprot and only use most frequent single gene name.
+
 
 ```{r}
 # mandatory
 data = data.table::fread("<file>")
-mode = "<mode>" #  Mode of refilling. See below for more infos
+mode = "<mode>" #  Mode of refilling. See above for more infos
 protein_column = "Protein IDs" # Name of column with protein IDs
 
 # optional 
@@ -63,21 +91,21 @@ skip_filled = TRUE # Bool to indicate if already filled gene names should be ski
 fasta = "<file>" # Fasta file when mode all or fasta
 ```
 
-Modes:
-
-* all - Use primarly fasta infos and additionally uniprot infos.
-* fasta - Use information extracted from fasta headers.
-* uniprot - Use mapping information from uniprot and use all gene names.
-* uniprot_primary - Use mapping information from uniprot and only all primary gene names.
-* uniprot_one - Use mapping information from uniprot and only use most frequent single gene name.
-
 ```{r}
 remapped_data <- remap_genenames(data = data, mode = mode, 
                                  protein_column = protein_column, gene_column = gene_column,
                                  skip_filled = skip_filled, organism = organism, fasta = fasta)
 ```
 
+### Log Information
+Here, too, it is possible to subsequently obtain information on how many gene names were found for how many rows. 
+
+This can also be displayed as a plot with a simple call.
+
 ## Get Orthologs
+Suppose you want to compare data between organisms, for example if you want to do a review across several species, you come across a known problem. Gene names differ between species, making it necessary to map all IDs to a selected organism through an ortholog mapping.
+
+Using the commonly used gProfiler, this method simply maps the gene names from the current organism to the target organism. 
 
 ```{r}
 # mandatory
@@ -91,3 +119,8 @@ gene_column = "Gene names" # Name of column with gene names
 ortholog_data <- get_orthologs(data = data, gene_column = gene_column, 
                                organism = source_organism, tar_organism = target_organism)
 ```
+
+### Log Information
+Unfortunately, depending on the original and target organism, there are more or less cases where no orthologous gene could be found. For a simplified overview of how many cases this was the case, this method can be used to obtain this information.
+
+As with the previous tasks, the log information can be displayed in plots.
