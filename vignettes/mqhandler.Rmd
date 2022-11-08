@@ -44,8 +44,8 @@ protein_column = "Protein IDs" # Name of column with protein IDs
 
 # optional 
 organism = "human" # Specify organism the ids should match to
-gene_column = "Gene names" # Name of column with gene names
-action = "delete" # What to do, if IDs cell is empty after filtering. Keep empty cell, delete it or fill it based on gene name.
+res_column = "Filtered IDs" # Name of column of filtered protein IDs. If NULL, the protein_column will be overridden
+keep_empty = FALSE # Bool to indicate if empty filtered protein IDs cells should be kept or deleted
 reviewed = TRUE # Bool to indicate if newly retrieved protein IDs should be reduced to reviewed ones
 decoy = FALSE # Bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept
 ```
@@ -53,7 +53,7 @@ decoy = FALSE # Bool to indicate if protein ids from decoy fasta (REV__, CON__) 
 ### Run 
 ```{r}
 filtered_data <- filter_protein_ids(data = data, protein_column = protein_column, organism = organism,
-                                    gene_column = gene_column, action = action, 
+                                    res_column = res_column, keep_empty = keep_empty, 
                                     reviewed = reviewed, decoy = decoy)
 ```
 ### Log Information
@@ -85,20 +85,61 @@ protein_column = "Protein IDs" # Name of column with protein IDs
 
 # optional 
 organism = "human" # Specify organism the ids should match to
-protein_column = "Protein IDs" # Name of column with protein IDs
-gene_column = "Gene names" # Name of column with gene names
+gene_column = "Gene names" # Name of column with gene names if exists
+res_column = "Remapped Gene names" # Column name for remap genenames results. If None, the gene_column will be overridden.
 skip_filled = TRUE # Bool to indicate if already filled gene names should be skipped
+keep_empty = FALSE # Bool to indicate if empty remapped gene names cells should be kept or deleted
 fasta = "<file>" # Fasta file when mode all or fasta
 ```
 
 ```{r}
-remapped_data <- remap_genenames(data = data, mode = mode, 
-                                 protein_column = protein_column, gene_column = gene_column,
-                                 skip_filled = skip_filled, organism = organism, fasta = fasta)
+remapped_data <- remap_genenames(data = data, mode = mode, protein_column = protein_column, 
+                                 gene_column = gene_column, res_column = res_column,
+                                 skip_filled = skip_filled, keep_empty = keep_empty,
+                                 organism = organism, fasta = fasta)
 ```
 
 ### Log Information
 Here, too, it is possible to subsequently obtain information on how many gene names were found for how many rows. 
+
+This can also be displayed as a plot with a simple call.
+
+## Reduce Gene Names
+
+A well-known problem with gen symbols is that they are not unique and slight changes in spelling can lead to problems. Often there are different gene symbols for the same gene in UniProt. Depending on which protein IDs you used to get the gene symbol, you can get multiple gene symbols for the same gene by using the previous remap function.
+
+This method makes it possible to reduce the gene symbols to a common gene symbol using different features and databases, thus preventing redundancy. There are multiple possible modes for which Names should be taken.
+
+Modes:
+
+* ensembl - Use gProfiler to reduce gene names to those having a Ensembl ID
+* HGNC - Use HGNC database to reduce gene names to those having an entry in HGNC (only for human)
+* mygeneinfo - Use mygeneinfo database to reduce gene names to those having an entry in mygeneinfo
+* enrichment - Use gProfiler to reduce gene names to those having a functional annotation
+
+
+```{r}
+# mandatory
+data = data.table::fread("<file>")
+mode = "<mode>" #  Mode of refilling. See above for more infos
+gene_column = "Gene names" # Name of column with gene names
+organism = "human" # Specify organism the ids should match to
+
+# optional 
+gene_column = "Gene names" # Name of column with gene names if exists
+res_column = "Reduced Gene names" # Column name for remap genenames results. If None, the gene_column will be overridden.
+keep_empty = FALSE # Bool to indicate if empty remapped gene names cells should be kept or deleted
+HGNC_mode = "mostfrequent" # Mode on how to select the gene names in HGNC (mostfrequent, all)
+```
+
+```{r}
+reduced_data <- reduce_genenames(data = data, mode = mode, gene_column = gene_column, 
+                                 organism = organism, keep_empty = keep_empty,
+                                 res_column = res_column, HGNC_mode = HGNC_mode)
+```
+
+### Log Information
+Here, too, it is possible to subsequently obtain information on how many gene names were reduced for how many rows. 
 
 This can also be displayed as a plot with a simple call.
 
