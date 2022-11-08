@@ -154,11 +154,16 @@ data = data.table::fread("<file>")
 source_organism = "rat" # Specify organism the ids should match to
 target_organism = "human" # Specify organism the ids should match to
 gene_column = "Gene names" # Name of column with gene names
+
+# optional 
+res_column = "Ortholog Gene names" # Set column name for ortholog results. If None, the gene_column will be overridden.
+keep_empty = FALSE # Set True if empty rows should be kept
 ```
 
 ```{r}
 ortholog_data <- get_orthologs(data = data, gene_column = gene_column, 
-                               organism = source_organism, tar_organism = target_organism)
+                               organism = source_organism, tar_organism = target_organism,
+                               res_column = res_column, keep_empty = keep_empty)
 ```
 
 ### Log Information

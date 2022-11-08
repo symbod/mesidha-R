@@ -20,9 +20,9 @@ mq <- import("mqhandler")
 
 # roxygenise();      # Builds the help files
 
-## Main functions ----
+# Main functions ----
 
-### Filter protein IDs ----
+## Filter protein IDs ----
 
 #' @title Filter Protein IDs
 #' 
@@ -115,7 +115,7 @@ remap_genenames <- function(data, mode, gene_column, organism,
                                               organism = organism, HGNC_mode = HGNC_mode))
 }
 
-### Get Orthologs ----
+## Get Orthologs ----
 
 #' @title Get Orthologs
 #' 
@@ -139,7 +139,7 @@ get_orthologs <- function(data, gene_column, organism, tar_organism,
                                         res_column = res_column, keep_empty = keep_empty))
 }
 
-## Smaller functions ----
+# Smaller functions ----
 
 #' @title Grep Header Information
 #'
