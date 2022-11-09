@@ -10,10 +10,10 @@ suppressPackageStartupMessages({
   }
 })
 ## Load python library ----
-#py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
-#if (!py_module_available("mqhandler")) {
-#  stop("Python package could not be installed")
-#}
+py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
+if (!py_module_available("mqhandler")) {
+  stop("Python package could not be installed")
+}
 mq <- import("mqhandler")
 
 
