@@ -3,7 +3,7 @@
 # Load required libraries ----
 ## Load R libraries ----
 suppressPackageStartupMessages({
-  required_packages <- c("reticulate","data.table", "roxygen2", "devtools")
+  required_packages <- c("reticulate","data.table", "roxygen2")
   for(package in required_packages){
     if(!require(package,character.only = TRUE, quietly = TRUE)) install.packages(package, dependencies = TRUE, quietly = TRUE)
     library(package, character.only = TRUE, quietly = TRUE)

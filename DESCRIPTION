@@ -2,4 +2,14 @@ Package: mqhandleR
 Type: Package
 Title: Package for queries of python package mqhandler
 Version: 0.0.2
+Author: Klaudia Adamowicz
+License: GNU GENERAL PUBLIC LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 4.0.0),
+    Python (>= 3.7)
+Imports:
+    reticulate,
+    data.table,
 RoxygenNote: 7.2.1
