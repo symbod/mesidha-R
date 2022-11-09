@@ -6,7 +6,14 @@
 
 Get ortholog gene names from origin organism to target organism.}
 \usage{
-get_orthologs(data, gene_column, organism, tar_organism)
+get_orthologs(
+  data,
+  gene_column,
+  organism,
+  tar_organism,
+  res_column,
+  keep_empty
+)
 }
 \arguments{
 \item{data}{a Dataframe with a column containing the gene names}
@@ -16,6 +23,10 @@ get_orthologs(data, gene_column, organism, tar_organism)
 \item{organism}{specify organism the ids currently match to}
 
 \item{tar_organism}{specify organism the ids should match to}
+
+\item{res_column}{name of column of reduced gene names results. If NULL, the gene_column will be overridden}
+
+\item{keep_empty}{bool to indicate if empty reduced gene names cells should be kept or deleted}
 }
 \value{
 dataframe with orthologs

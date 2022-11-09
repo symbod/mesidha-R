@@ -39,7 +39,8 @@ This method makes it possible to check the protein IDs for their organism by dir
 ### Setup
 ```{r}
 # mandatory
-data = data.table::fread("<file>")
+data = data.table::fread("../../MaxQuantHandler/in/Li2021_proteins_NaOmit_SL_irs.txt")
+#data = data.table::fread("<file>")
 protein_column = "Protein IDs" # Name of column with protein IDs
 
 # optional 

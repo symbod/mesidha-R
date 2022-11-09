@@ -76,7 +76,7 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, decoy = FA
 #' @export
 #'
 #' @examples
-remap_genenames <- function(data, mode, protein_column, gene_column, res_column = NULL,
+remap_gene_names <- function(data, mode, protein_column, gene_column, res_column = NULL,
                             skip_filled = FALSE, organism = NULL, fasta = NULL){
   return(mq$remap_genenames$remap_genenames(data = data, mode = mode, protein_column = protein_column,
                                             gene_column = gene_column, res_column = res_column,
@@ -108,7 +108,7 @@ remap_genenames <- function(data, mode, protein_column, gene_column, res_column 
 #' @export
 #'
 #' @examples
-remap_genenames <- function(data, mode, gene_column, organism, 
+reduce_gene_names <- function(data, mode, gene_column, organism, 
                             res_column = NULL, keep_empty = FALSE, HGNC_mode = "mostfrequent"){
   return(mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
                                               res_column = res_column, keep_empty = keep_empty, 
