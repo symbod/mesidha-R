@@ -12,4 +12,10 @@ Depends:
 Imports:
     reticulate,
     data.table,
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "mqhandler", version = "0.0.19", pip = TRUE)
+    )
+  )
 RoxygenNote: 7.2.1
