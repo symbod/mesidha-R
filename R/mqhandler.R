@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
   }
 })
 ## Load python library ----
-py_install("mqhandler==0.0.19", pip = TRUE, ignore_installed=TRUE)
+py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
 if (!py_module_available("mqhandler")) {
   stop("Python package could not be installed")
 }
