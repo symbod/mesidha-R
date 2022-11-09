@@ -94,7 +94,7 @@ fasta = "<file>" # Fasta file when mode all or fasta
 ```
 
 ```{r}
-remapped_data <- remap_genenames(data = data, mode = mode, protein_column = protein_column, 
+remapped_data <- remap_gene_names(data = data, mode = mode, protein_column = protein_column, 
                                  gene_column = gene_column, res_column = res_column,
                                  skip_filled = skip_filled, keep_empty = keep_empty,
                                  organism = organism, fasta = fasta)
@@ -134,7 +134,7 @@ HGNC_mode = "mostfrequent" # Mode on how to select the gene names in HGNC (mostf
 ```
 
 ```{r}
-reduced_data <- reduce_genenames(data = data, mode = mode, gene_column = gene_column, 
+reduced_data <- reduce_gene_names(data = data, mode = mode, gene_column = gene_column, 
                                  organism = organism, keep_empty = keep_empty,
                                  res_column = res_column, HGNC_mode = HGNC_mode)
 ```
