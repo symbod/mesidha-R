@@ -1,5 +1,5 @@
 Package: mqhandleR
 Type: Package
 Title: Package for queries of python package mqhandler
-Version: 0.0.1
+Version: 0.0.2
 RoxygenNote: 7.2.1
