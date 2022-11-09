@@ -6,9 +6,6 @@ Author: Klaudia Adamowicz
 License: GNU GENERAL PUBLIC LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: 
-    R (>= 4.0.0),
-    Python (>= 3.7)
 Imports:
     reticulate,
     data.table,
