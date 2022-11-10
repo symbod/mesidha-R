@@ -1,2 +1,208 @@
-# MaxQuantHandler-R
+# MaxQuantHandler-R 
 R Wrapper for mqhandler python package
+
+## Introduction
+
+<span style="color:red">TODO</span>
+
+This repository comprises four main functionalities:
+
+* filter protein IDs
+* remap gene names
+* reduce gene names
+* map orthologs
+
+## Installation
+
+```{r}
+  # Install mqhandleR from github and build vignettes
+  if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
+  if(!require("mqhandleR",character.only = TRUE)) devtools::install_github("symbod/MaxQuantHandler-R", build_vignettes = TRUE, dependencies = TRUE)
+  # Load and attach mqhandleR 
+  library("mqhandleR")
+```
+
+## 1. Filter Protein IDs
+For a protein assignment using MaxQuant, Fasta files are required. Since MaxQuant can also be used to run several data collectively, 
+it can also happen that results are provided with protein IDs of several organisms.
+
+This method makes it possible to check the protein IDs for their organism by directly accessing the Uniprot database, and to 
+remove incorrectly assigned IDs. Additionally, decoy (REV_) and contaminants (CON_) IDs and/or unreviewed protein IDs can be removed.
+
+One might be interested to know how many IDs were filtered out, in total and per row. Therefore, with this call, you can generate 2 data frames that display this information as a table.
+
+In addition to the information as a table, it can also be displayed directly as plots with a simple call.
+
+#### 1.1 Load Data
+```{r}
+data = data.table::fread("<file>")
+```
+
+#### 1.2 Set Preferences
+```{r}
+# mandatory
+protein_column = "Protein IDs" # Name of column with protein IDs
+
+# optional
+organism = "rat" # Specify organism the IDs should match to
+rev_con = False # Bool to indicate if protein IDs from decoy (REV__) and contaminants (CON__) should be kept
+reviewed = False # Bool to indicate if newly retrieved protein IDS should be reduced to reviewed ones
+keep_empty = False # Bool to indicate if empty ID cells should be kept or deleted
+res_column = "Filtered Protein IDs" # Name of column for filer protein IDs results. If None, the protein_column will be overridden
+```
+
+#### 1.3 Run filter_protein_ids 
+```{r}
+# TODO log information
+filtered_data <- filter_protein_ids(data = data, protein_column = protein_column, organism = organism,
+                                    res_column = res_column, keep_empty = keep_empty, 
+                                    reviewed = reviewed, rev_con = rev_con)
+```
+
+#### 1.4 Inspect Logging
+```{r}
+#TODO plots
+```
+
+
+## 2. Remap Gene Names
+
+Besides protein IDs, gene names are also taken out of the respective Fasta files and mapped. These are needed for easier naming in plots and in analytical procedures such as enrichment analysis. Unfortunately, Fasta files are not always complete in terms of gene names.
+
+This method makes it possible to retrieve the assigned gene names based on the protein IDs with direct access to the Uniprot database and to fill the empty entries in the user file or even replace existing entries. There are multiple possible modes for which names should be taken.
+
+Here, too, it is possible to subsequently obtain information on how many gene names were found for how many rows.
+
+Modes of refilling:
+ all: use primarily fasta infos and additionally uniprot infos
+* fasta: use information extracted from fasta headers
+* uniprot: use mapping information from uniprot and use all gene names
+* uniprot_primary: use mapping information from uniprot and only all primary gene names
+* uniprot_one: use mapping information from uniprot and only use most frequent single gene name
+
+#### 2.1 Load Data
+```{r}
+data = data.table::fread("<file>")
+```
+
+#### 2.2 Set Preferences
+```{r}
+# mandatory
+mode = "<mode>" # Mode of refilling. See below for more infos.
+protein_column = "Protein IDs" # Name of column with protein IDs
+
+# optional
+gene_column = "Gene Names" # Name of column with gene names
+skip_filled = False # Bool to indicate if already filled gene names should be skipped
+organism = "rat" # Specify organism the IDs should match to
+fasta = None # Path of Fasta file when mode all or fasta
+keep_empty = False # Bool to indicate if empty gene names cells should be kept or deleted
+res_column = "Remapped Gene Names" # Name of column for remap gene names results. If None, the gene_column will be overridden
+```
+
+#### 2.3 Run remap_genenames 
+```{r}
+# TODO log information
+remapped_data <- remap_genenames(data = data, mode = mode, protein_column = protein_column, 
+                                 gene_column = gene_column, res_column = res_column,
+                                 skip_filled = skip_filled, keep_empty = keep_empty,
+                                 organism = organism, fasta = fasta)
+```
+
+#### 2.4 Inspect Logging
+```{r}
+# TODO plots
+```
+
+
+
+## 3. Reduce Gene Names
+
+A well-known problem with gene symbols is that they are not unique and slight changes in spelling can lead to problems. Often there are different gene symbols for the same gene in UniProt. Depending on which protein IDs you used to get the gene symbol, you can get multiple gene symbols for the same gene by using the previous remap function.
+
+This method makes it possible to reduce the gene symbols to a common gene symbol using different features and databases, thus preventing redundancy. There are multiple possible modes for which names should be taken.
+
+Here, too, it is possible to subsequently obtain information on how many gene names were reduced for how many rows. 
+
+This can also be displayed as a plot with a simple call.
+
+Modes of reduction:
+
+* ensembl - Use gProfiler to reduce gene names to those having a Ensembl ID
+* HGNC - Use HGNC database to reduce gene names to those having an entry in HGNC (only for human)
+* mygeneinfo - Use mygeneinfo database to reduce gene names to those having an entry in mygeneinfo
+* enrichment - Use gProfiler to reduce gene names to those having a functional annotation
+
+#### 3.1 Load Data
+```{r}
+data = data.table::fread("<file>")
+```
+
+#### 3.2 Set Preferences
+```{r}
+# mandatory
+mode = "<mode>" # Mode of reduction. See below for more infos-
+gene_column = "Gene Names" # Name of column with gene names
+organism = "rat" # Specify organism the IDs should match to
+
+# optional
+res_column = "Reduced Gene Names" # Name of column of reduced gene names results. If None, the gene_column will be overridden
+keep_empty = False # Bool to indicate if empty reduced gene names cells should be kept or deleted
+HGNC_mode = "<HGNC_mode>" # Mode on how to reduce the gene names using HGNC (mostfrequent, all)
+```
+
+#### 3.3 Run reduce_genenames
+```{r}
+# TODO logging
+reduced_data <- reduce_genenames(data = data, mode = mode, gene_column = gene_column, 
+                                 organism = organism, keep_empty = keep_empty,
+                                 res_column = res_column, HGNC_mode = HGNC_mode)
+```
+
+#### 3.4 Inspect Logging
+
+```{r}
+# TODO plots
+
+```
+
+## 4. Map Orthologs
+Suppose you want to compare data between organisms, for example if you want to do a review across several species, you come across a known problem. Gene names differ between species, making it necessary to map all IDs to a selected organism through an ortholog mapping.
+
+Using the commonly used gProfiler, this method simply maps the gene names from the current organism to the target organism. 
+
+Unfortunately, depending on the original and target organism, there are more or less cases where no orthologous gene could be found. For a simplified overview of how many cases this was the case, this method can be used to obtain this information.
+
+As with the previous tasks, the log information can be displayed in plots.
+
+#### 4.1 Load Data
+```{r}
+data = data.table::fread("<file>")
+```
+
+#### 4.2 Set Preferences
+```{r}
+# mandatory
+gene_column = "Gene Names" # Name of column with gene names
+source_organism = "rat" # Specify organism the IDs match to
+target_organism = "human" # Specify organism the IDs should me mapped to
+
+# optional
+keep_empty = False # Bool to indicate if empty ortholog gene names cells should be kept or deleted
+res_column = "Ortholog Gene Names" # Name of column of orthologs gene names results. If None, the gene_column will be overridden
+```
+
+#### 4.3 Run map_orthologs
+```{r}
+# TODO logging
+ortholog_data <- map_orthologs(data = data, gene_column = gene_column, 
+                               organism = source_organism, tar_organism = target_organism,
+                               res_column = res_column, keep_empty = keep_empty)
+```
+
+#### 4.4 Inspect Logging
+```{r}
+# TODO plots
+```
+
+
