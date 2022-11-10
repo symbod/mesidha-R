@@ -1,15 +1,20 @@
 Package: mqhandleR
 Type: Package
 Title: Package for queries of python package mqhandler
-Version: 0.0.2
-Author: Klaudia Adamowicz
+Description: Package for queries of python package mqhandler.
+Version: 0.0.3
+Authors@R: c(
+    person("Klaudia", "Adamowicz", email = "klaudia.adamowicz.91@gmail.com", role = c("aut", "cre")),
+    person("Lis", "Arend", role = "aut"))
 License: GNU GENERAL PUBLIC LICENSE
+Depends: R (>= 4.0.0)
+Imports:
+    reticulate
+URL: https://github.com/symbod/MaxQuantHandler-R
+BugReports: https://github.com/symbod/MaxQuantHandler-R/issues
 Encoding: UTF-8
-LazyData: true
-Config/reticulate:
-  list(
-    packages = list(
-      list(package = "mqhandler", version = "0.0.20", pip = TRUE)
-    )
-  )
 RoxygenNote: 7.2.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

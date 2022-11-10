@@ -2,17 +2,7 @@
 % Please edit documentation in R/mqhandler.R
 \name{remap_genenames}
 \alias{remap_genenames}
-\title{Remap Gene Names
-
-Use protein IDs to get associated Gene Names and fill exmpty entries 
-and optionally replace already existing Names. Following modes are possible.
-
-Modes:
-all - Use primarly fasta infos and additionally uniprot infos.
-fasta - Use information extracted from fasta headers.
-uniprot - Use mapping information from uniprot and use all gene names.
-uniprot_primary - Use mapping information from uniprot and only all primary gene names.
-uniprot_one - Use mapping information from uniprot and only use most frequent single gene name.}
+\title{Remap Gene Names}
 \usage{
 remap_genenames(
   data,
@@ -46,8 +36,6 @@ remap_genenames(
 remapped Dataframe
 }
 \description{
-Remap Gene Names
-
 Use protein IDs to get associated Gene Names and fill exmpty entries 
 and optionally replace already existing Names. Following modes are possible.
 

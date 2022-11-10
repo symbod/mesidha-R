@@ -4,7 +4,7 @@ author: Klaudia Adamowicz
 
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{mqhandler}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -89,7 +89,8 @@ This method makes it possible to retrieve the assigned gene names based on the p
 Here, too, it is possible to subsequently obtain information on how many gene names were found for how many rows.
 
 Modes of refilling:
- all: use primarily fasta infos and additionally uniprot infos
+
+* all: use primarily fasta infos and additionally uniprot infos
 * fasta: use information extracted from fasta headers
 * uniprot: use mapping information from uniprot and use all gene names
 * uniprot_primary: use mapping information from uniprot and only all primary gene names

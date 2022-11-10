@@ -2,16 +2,7 @@
 % Please edit documentation in R/mqhandler.R
 \name{reduce_genenames}
 \alias{reduce_genenames}
-\title{Reduce Gene Names
-
-Use existing Gene Names to reduce them and replace them by a single Name 
-to redundant Names. Following modes are possible.
-
-Modes:
-ensembl - Use gProfiler to reduce gene names to those having a Ensembl ID
-HGNC - Use HGNC database to reduce gene names to those having an entry in HGNC (only for human)
-mygeneinfo - Use mygeneinfo database to reduce gene names to those having an entry in mygeneinfo
-enrichment - Use gProfiler to reduce gene names to those having a functional annotation}
+\title{Reduce Gene Names}
 \usage{
 reduce_genenames(
   data,
@@ -42,8 +33,6 @@ reduce_genenames(
 reduced Dataframe
 }
 \description{
-Reduce Gene Names
-
 Use existing Gene Names to reduce them and replace them by a single Name 
 to redundant Names. Following modes are possible.
 
