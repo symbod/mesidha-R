@@ -1,7 +1,7 @@
 # MaxQuantHandler-R 
 R Wrapper for mqhandler python package
 
-## Introduction {-}
+## Introduction
 
 <span style="color:red">TODO</span>
 
@@ -12,7 +12,7 @@ This repository comprises four main functionalities:
 * reduce gene names
 * map orthologs
 
-## Installation {-}
+## Installation
 
 ```{r}
   # Install mqhandleR from github and build vignettes
