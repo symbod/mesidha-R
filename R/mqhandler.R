@@ -114,9 +114,9 @@ reduce_genenames <- function(data, mode, gene_column, organism,
                                               organism = organism, HGNC_mode = HGNC_mode))
 }
 
-## Get Orthologs ----
+## Map Orthologs ----
 
-#' @title Get Orthologs
+#' @title Map Orthologs
 #' 
 #' Get ortholog gene names from origin organism to target organism.
 #'
@@ -131,7 +131,7 @@ reduce_genenames <- function(data, mode, gene_column, organism,
 #' @export
 #'
 #' @examples
-get_orthologs <- function(data, gene_column, organism, tar_organism,
+map_orthologs <- function(data, gene_column, organism, tar_organism,
                           res_column, keep_empty) {
   return(mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
                                         organism = source_organism, tar_organism = target_organism,
