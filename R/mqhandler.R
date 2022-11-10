@@ -30,7 +30,7 @@ mq <- import("mqhandler")
 #' @param data a Dataframe with a column containing the protein IDs
 #' @param protein_column name of column with protein IDs
 #' @param organism (optional) specify organism the ids should match to
-#' @param decoy (optional) bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept
+#' @param rev_con (optional) bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept
 #' @param res_column name of column of filtered protein IDs. If NULL, the protein_column will be overridden
 #' @param keep_empty bool to indicate if empty reduced gene names cells should be kept or deleted
 #' @param reviewed (optional) bool to indicate if newly retrieved protein IDs should be reduced to reviewed ones
@@ -39,12 +39,12 @@ mq <- import("mqhandler")
 #' @export
 #'
 #' @examples
-filter_protein_ids <- function(data, protein_column, organism = NULL, decoy = FALSE, 
+filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = FALSE, 
                                keep_empty = FALSE, res_column = NULL, reviewed = TRUE) {
   
   return(mq$filter_ids$filter_protein_ids(data = data, protein_column = protein_column, 
-                                          organism = organism, decoy = decoy, 
-                                          keep_empty = keep_empty, # res_column = res_column,
+                                          organism = organism, rev_con = rev_con, 
+                                          keep_empty = keep_empty, res_column = res_column,
                                           reviewed = reviewed))
 }
 
