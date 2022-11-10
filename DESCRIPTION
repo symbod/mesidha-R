@@ -10,6 +10,12 @@ License: GNU GENERAL PUBLIC LICENSE
 Depends: R (>= 4.0.0)
 Imports:
     reticulate
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "mqhandler")
+    )
+  )
 URL: https://github.com/symbod/MaxQuantHandler-R
 BugReports: https://github.com/symbod/MaxQuantHandler-R/issues
 Encoding: UTF-8

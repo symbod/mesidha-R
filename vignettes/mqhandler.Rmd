@@ -50,7 +50,7 @@ In addition to the information as a table, it can also be displayed directly as 
 
 #### 1.1 Load Data
 ```{r}
-data = data.table::fread("<file>")
+data = data.table::fread("../../MaxQuantHandler/in/Li2021_proteins_NaOmit_SL_irs.txt")
 ```
 
 #### 1.2 Set Preferences
@@ -60,9 +60,9 @@ protein_column = "Protein IDs" # Name of column with protein IDs
 
 # optional
 organism = "rat" # Specify organism the IDs should match to
-rev_con = False # Bool to indicate if protein IDs from decoy (REV__) and contaminants (CON__) should be kept
-reviewed = False # Bool to indicate if newly retrieved protein IDS should be reduced to reviewed ones
-keep_empty = False # Bool to indicate if empty ID cells should be kept or deleted
+rev_con = FALSE # Bool to indicate if protein IDs from decoy (REV__) and contaminants (CON__) should be kept
+reviewed = FALSE # Bool to indicate if newly retrieved protein IDS should be reduced to reviewed ones
+keep_empty = FALSE # Bool to indicate if empty ID cells should be kept or deleted
 res_column = "Filtered Protein IDs" # Name of column for filer protein IDs results. If None, the protein_column will be overridden
 ```
 
