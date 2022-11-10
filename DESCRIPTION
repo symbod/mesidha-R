@@ -9,7 +9,7 @@ LazyData: true
 Config/reticulate:
   list(
     packages = list(
-      list(package = "mqhandler", version = "0.0.19", pip = TRUE)
+      list(package = "mqhandler", version = "0.0.20", pip = TRUE)
     )
   )
 RoxygenNote: 7.2.1
