@@ -13,7 +13,7 @@ Imports:
 Config/reticulate:
   list(
     packages = list(
-      list(package = "mqhandler")
+      list(package = "mqhandler", pip = TRUE)
     )
   )
 URL: https://github.com/symbod/MaxQuantHandler-R
