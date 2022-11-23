@@ -7,7 +7,7 @@
   library("reticulate", character.only = TRUE, quietly = TRUE)
   reticulate::configure_environment(pkgname)
   ## Load python library ----
-  py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
+  py_install("mqhandler", pip = TRUE, ignore_installed=TRUE, python_version="0.0.22")
 }
 
 # Main functions ----
@@ -64,6 +64,7 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = 
 #' @export
 remap_genenames <- function(data, mode, protein_column, gene_column, res_column = NULL,
                             skip_filled = FALSE, organism = NULL, fasta = NULL, keep_empty = FALSE){
+  mq <- import("mqhandler")
   return(mq$remap_genenames$remap_genenames(data = data, mode = mode, protein_column = protein_column,
                                             gene_column = gene_column, res_column = res_column,
                                             skip_filled = skip_filled, organism = organism,
@@ -95,6 +96,7 @@ remap_genenames <- function(data, mode, protein_column, gene_column, res_column 
 #' @export
 reduce_genenames <- function(data, mode, gene_column, organism, 
                             res_column = NULL, keep_empty = FALSE, HGNC_mode = "mostfrequent"){
+  mq <- import("mqhandler")
   return(mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
                                               res_column = res_column, keep_empty = keep_empty, 
                                               organism = organism, HGNC_mode = HGNC_mode))
@@ -117,6 +119,7 @@ reduce_genenames <- function(data, mode, gene_column, organism,
 #' @export
 map_orthologs <- function(data, gene_column, organism, tar_organism,
                           res_column, keep_empty) {
+  mq <- import("mqhandler")
   return(mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
                                         organism = organism, tar_organism = tar_organism,
                                         res_column = res_column, keep_empty = keep_empty))
@@ -134,5 +137,6 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
 #' @return a Dataframe with the collected information
 #' @export
 grep_header_info <- function(fasta) {
+  mq <- import("mqhandler")
   return(mq$fasta_grepper$grep_header_info(fasta))
 }
