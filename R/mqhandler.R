@@ -8,7 +8,6 @@
   reticulate::configure_environment(pkgname)
   ## Load python library ----
   py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
-  mq <- import("mqhandler")
 }
 
 # Main functions ----
@@ -31,7 +30,7 @@
 #' @export
 filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = FALSE, 
                                keep_empty = FALSE, res_column = NULL, reviewed = TRUE) {
-  
+  mq <- import("mqhandler")
   return(mq$filter_ids$filter_protein_ids(data = data, protein_column = protein_column, 
                                           organism = organism, rev_con = rev_con, 
                                           keep_empty = keep_empty, res_column = res_column,
