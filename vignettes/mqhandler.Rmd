@@ -39,7 +39,7 @@ This method makes it possible to check the protein IDs for their organism by dir
 ### Setup
 ```{r}
 # mandatory
-data = data.table::fread("<file>")
+data = data.table::fread("../../../Li2021_proteins_NaOmit_SL_irs.txt")[0:50,]
 protein_column = "Protein IDs" # Name of column with protein IDs
 
 # optional 
@@ -47,15 +47,16 @@ organism = "human" # Specify organism the ids should match to
 res_column = "Filtered IDs" # Name of column of filtered protein IDs. If NULL, the protein_column will be overridden
 keep_empty = FALSE # Bool to indicate if empty filtered protein IDs cells should be kept or deleted
 reviewed = TRUE # Bool to indicate if newly retrieved protein IDs should be reduced to reviewed ones
-decoy = FALSE # Bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept
+rev_con = FALSE # Bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept
 ```
 
 ### Run 
 ```{r}
 filtered_data <- filter_protein_ids(data = data, protein_column = protein_column, organism = organism,
                                     res_column = res_column, keep_empty = keep_empty, 
-                                    reviewed = reviewed, decoy = decoy)
+                                    reviewed = reviewed, rev_con = rev_con)
 ```
+
 ### Log Information
 One might be interested to know how many IDs were filtered out, in total and per row. Therefore, with this call, you can generate 2 data frames that display this information as a table.
 

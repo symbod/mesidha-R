@@ -10,9 +10,9 @@ filter_protein_ids(
   data,
   protein_column,
   organism = NULL,
-  decoy = FALSE,
-  action = "delete",
-  gene_column = NULL,
+  rev_con = FALSE,
+  keep_empty = FALSE,
+  res_column = NULL,
   reviewed = TRUE
 )
 }
@@ -23,11 +23,11 @@ filter_protein_ids(
 
 \item{organism}{(optional) specify organism the ids should match to}
 
-\item{decoy}{(optional) bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept}
+\item{rev_con}{(optional) bool to indicate if protein ids from decoy fasta (REV__, CON__) should be kept}
 
-\item{action}{(optional) what to do, if IDs cell is empty after filtering. Keep empty cell, delete it or fill it based on gene name.}
+\item{keep_empty}{bool to indicate if empty reduced gene names cells should be kept or deleted}
 
-\item{gene_column}{(optional) name of column with gene names}
+\item{res_column}{name of column of filtered protein IDs. If NULL, the protein_column will be overridden}
 
 \item{reviewed}{(optional) bool to indicate if newly retrieved protein IDs should be reduced to reviewed ones}
 }
