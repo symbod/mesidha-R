@@ -2,9 +2,7 @@
 % Please edit documentation in R/mqhandler.R
 \name{filter_protein_ids}
 \alias{filter_protein_ids}
-\title{Filter Protein IDs
-
-Remove decoy IDs, contaminated IDs and / or filter IDs by organism.}
+\title{Filter Protein IDs}
 \usage{
 filter_protein_ids(
   data,
@@ -35,7 +33,5 @@ filter_protein_ids(
 filtered Dataframe
 }
 \description{
-Filter Protein IDs
-
 Remove decoy IDs, contaminated IDs and / or filter IDs by organism.
 }

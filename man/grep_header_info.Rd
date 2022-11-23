@@ -2,10 +2,7 @@
 % Please edit documentation in R/mqhandler.R
 \name{grep_header_info}
 \alias{grep_header_info}
-\title{Grep Header Information
-
-Grep the information,that is stored in the headers inside a 
-fasta file, and return them inside a Dataframe.}
+\title{Grep Header Information}
 \usage{
 grep_header_info(fasta)
 }
@@ -16,8 +13,6 @@ grep_header_info(fasta)
 a Dataframe with the collected information
 }
 \description{
-Grep Header Information
-
 Grep the information,that is stored in the headers inside a 
 fasta file, and return them inside a Dataframe.
 }

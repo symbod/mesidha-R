@@ -2,36 +2,17 @@
 % Please edit documentation in R/mqhandler.R
 \name{remap_genenames}
 \alias{remap_genenames}
-\title{Remap Gene Names
-
-Use protein IDs to get associated Gene Names and fill exmpty entries 
-and optionally replace already existing Names. Following modes are possible.
-
-Modes:
-all - Use primarly fasta infos and additionally uniprot infos.
-fasta - Use information extracted from fasta headers.
-uniprot - Use mapping information from uniprot and use all gene names.
-uniprot_primary - Use mapping information from uniprot and only all primary gene names.
-uniprot_one - Use mapping information from uniprot and only use most frequent single gene name.}
+\title{Remap Gene Names}
 \usage{
 remap_genenames(
   data,
   mode,
+  protein_column,
   gene_column,
-  organism,
   res_column = NULL,
-  keep_empty = FALSE,
-  HGNC_mode = "mostfrequent"
-)
-
-remap_genenames(
-  data,
-  mode,
-  gene_column,
-  organism,
-  res_column = NULL,
-  keep_empty = FALSE,
-  HGNC_mode = "mostfrequent"
+  skip_filled = FALSE,
+  organism = NULL,
+  fasta = NULL
 )
 }
 \arguments{
@@ -39,28 +20,22 @@ remap_genenames(
 
 \item{mode}{mode of refilling (See in description for more infos)}
 
-\item{gene_column}{name of column with gene names}
+\item{protein_column}{name of column with protein IDs}
 
-\item{organism}{(optional) specify organism the ids should match to}
+\item{gene_column}{(optional) name of column with gene names}
 
 \item{res_column}{name of column of reduced gene names results. If NULL, the gene_column will be overridden}
 
-\item{keep_empty}{bool to indicate if empty reduced gene names cells should be kept or deleted}
-
-\item{HGNC_mode}{setting on how to selected the gene names in HGNC (mostfrequent, all)}
-
-\item{protein_column}{name of column with protein IDs}
+\item{organism}{(optional) specify organism the ids should match to}
 
 \item{fasta}{(optional) fasta file when mode all or fasta}
+
+\item{keep_empty}{bool to indicate if empty reduced gene names cells should be kept or deleted}
 }
 \value{
 remapped Dataframe
-
-reduced Dataframe
 }
 \description{
-Remap Gene Names
-
 Use protein IDs to get associated Gene Names and fill exmpty entries 
 and optionally replace already existing Names. Following modes are possible.
 
@@ -70,15 +45,4 @@ fasta - Use information extracted from fasta headers.
 uniprot - Use mapping information from uniprot and use all gene names.
 uniprot_primary - Use mapping information from uniprot and only all primary gene names.
 uniprot_one - Use mapping information from uniprot and only use most frequent single gene name.
-
-Reduce Gene Names
-
-Use existing Gene Names to reduce them and replace them by a single Name 
-to redundant Names. Following modes are possible.
-
-Modes:
-ensembl - Use gProfiler to reduce gene names to those having a Ensembl ID
-HGNC - Use HGNC database to reduce gene names to those having an entry in HGNC (only for human)
-mygeneinfo - Use mygeneinfo database to reduce gene names to those having an entry in mygeneinfo
-enrichment - Use gProfiler to reduce gene names to those having a functional annotation
 }
