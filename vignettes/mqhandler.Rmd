@@ -112,10 +112,10 @@ protein_column = "Protein IDs" # Name of column with protein IDs
 
 # optional
 gene_column = "Gene Names" # Name of column with gene names
-skip_filled = False # Bool to indicate if already filled gene names should be skipped
+skip_filled = FALSE # Bool to indicate if already filled gene names should be skipped
 organism = "human" # Specify organism the IDs should match to
-fasta = None # Path of Fasta file when mode all or fasta
-keep_empty = False # Bool to indicate if empty gene names cells should be kept or deleted
+fasta = NULL # Path of Fasta file when mode all or fasta
+keep_empty = FALSE # Bool to indicate if empty gene names cells should be kept or deleted
 res_column = "Remapped Gene Names" # Name of column for remap gene names results. If None, the gene_column will be overridden
 ```
 
