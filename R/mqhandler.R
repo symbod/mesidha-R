@@ -6,11 +6,10 @@ library("reticulate", character.only = TRUE, quietly = TRUE)
 
 .onLoad <- function(libname, pkgname) {
   reticulate::configure_environment(pkgname)
+  ## Load python library ----
+  py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
+  mq <- import("mqhandler")
 }
-
-## Load python library ----
-py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
-mq <- import("mqhandler")
 
 # Main functions ----
 
