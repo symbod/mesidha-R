@@ -2,9 +2,9 @@
 
 # Load required libraries ----
 ## Load R libraries ----
-library("reticulate", character.only = TRUE, quietly = TRUE)
 
 .onLoad <- function(libname, pkgname) {
+  library("reticulate", character.only = TRUE, quietly = TRUE)
   reticulate::configure_environment(pkgname)
   ## Load python library ----
   py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
