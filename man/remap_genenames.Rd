@@ -12,7 +12,8 @@ remap_genenames(
   res_column = NULL,
   skip_filled = FALSE,
   organism = NULL,
-  fasta = NULL
+  fasta = NULL,
+  keep_empty = FALSE
 )
 }
 \arguments{

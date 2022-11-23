@@ -65,10 +65,11 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = 
 #' @return remapped Dataframe
 #' @export
 remap_genenames <- function(data, mode, protein_column, gene_column, res_column = NULL,
-                            skip_filled = FALSE, organism = NULL, fasta = NULL){
+                            skip_filled = FALSE, organism = NULL, fasta = NULL, keep_empty = FALSE){
   return(mq$remap_genenames$remap_genenames(data = data, mode = mode, protein_column = protein_column,
                                             gene_column = gene_column, res_column = res_column,
-                                            skip_filled = skip_filled, organism = organism, fasta = fasta))
+                                            skip_filled = skip_filled, organism = organism,
+                                            fasta = fasta, keep_empty = keep_empty))
 }
 
 ## Reduce Gene Names ----
