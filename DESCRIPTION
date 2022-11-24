@@ -10,6 +10,9 @@ License: GNU GENERAL PUBLIC LICENSE
 Depends: R (>= 4.0.0)
 Imports:
     reticulate
+    data.table
+    ggplot2
+    dplyr
 Config/reticulate:
   list(
     packages = list(

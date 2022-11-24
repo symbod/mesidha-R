@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 ```{r loading, include=TRUE, warning=FALSE, message=FALSE}
   # Install mqhandleR from github and build vignettes
   if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
-  if(!require("mqhandleR",character.only = TRUE)) devtools::install_github("symbod/MaxQuantHandler-R", build_vignettes = TRUE, dependencies = TRUE)
+  devtools::install_github("symbod/MaxQuantHandler-R", build_vignettes = TRUE, dependencies = TRUE)
   # Load and attach mqhandleR 
   library("mqhandleR")
 ```

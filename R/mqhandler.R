@@ -4,8 +4,14 @@
 ## Load R libraries ----
 
 .onLoad <- function(libname, pkgname) {
-  if (!requireNamespace("reticulate", quietly = TRUE)) install.packages("reticulate")
-  library("reticulate", character.only = TRUE, quietly = TRUE)
+  # Load required libraries ----
+  suppressPackageStartupMessages({
+    required_packages <- c("data.table","ggplot2", "dplyr", "reticulate")
+    for(package in required_packages){
+      if(!require(package,character.only = TRUE, quietly = TRUE)) install.packages(package, dependencies = TRUE, quietly = TRUE)
+      library(package, character.only = TRUE, quietly = TRUE)
+    }
+  })
   reticulate::configure_environment(pkgname)
   ## Load python library ----
   py_install("mqhandler", pip = TRUE, ignore_installed=TRUE, python_version="0.0.22")

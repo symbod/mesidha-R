@@ -1,15 +1,5 @@
 # Plotting Functions
 
-# Load required libraries ----
-suppressPackageStartupMessages({
-  required_packages <- c("data.table","ggplot2", "dplyr")
-  for(package in required_packages){
-    if(!require(package,character.only = TRUE, quietly = TRUE)) install.packages(package, dependencies = TRUE, quietly = TRUE)
-    library(package, character.only = TRUE, quietly = TRUE)
-  }
-})
-
-
 #' Overview plot for logging data of mqhandler's functions
 #'
 #' @param logging overview logging Dataframe that has been returned by one of the four methods of mqhandler
