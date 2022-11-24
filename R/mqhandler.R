@@ -135,7 +135,7 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
   mq <- import("mqhandler")
   mq_res <- mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
                                            organism = organism, tar_organism = tar_organism,
-                                           res_column = res_column, keep_empty = keep_empty))
+                                           res_column = res_column, keep_empty = keep_empty)
   return(list("Modified_Data" = mq_res[[1]], "Overview_Log" = mq_res[[2]]$Overview_Log, 
               "Detailed_Log" = mq_res[[2]]$Detailed_Log))
 }

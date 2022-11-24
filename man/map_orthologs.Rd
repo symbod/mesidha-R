@@ -9,8 +9,8 @@ map_orthologs(
   gene_column,
   organism,
   tar_organism,
-  res_column,
-  keep_empty
+  res_column = NULL,
+  keep_empty = FALSE
 )
 }
 \arguments{

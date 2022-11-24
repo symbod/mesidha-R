@@ -8,7 +8,7 @@ remap_genenames(
   data,
   mode,
   protein_column,
-  gene_column,
+  gene_column = "Gene Names",
   res_column = NULL,
   skip_filled = FALSE,
   organism = NULL,
