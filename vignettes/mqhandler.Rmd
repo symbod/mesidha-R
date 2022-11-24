@@ -50,7 +50,7 @@ In addition to the information as a table, it can also be displayed directly as 
 
 #### 1.1 Load Data
 ```{r}
-data = data.table::fread("../../../Li2021_proteins_NaOmit_SL_irs.txt")[0:50,]
+data = data.table::fread("../../../Li2021_proteins_NaOmit_SL_irs.txt")[100:150,]
 ```
 
 #### 1.2 Set Preferences
@@ -69,7 +69,7 @@ res_column = "Filtered Protein IDs" # Name of column for filer protein IDs resul
 #### 1.3 Run filter_protein_ids 
 ```{r}
 # TODO log information
-filtered_results <- mqhandleR::filter_protein_ids(data = data, protein_column = protein_column, organism = organism,
+filtered_results <- filter_protein_ids(data = data, protein_column = protein_column, organism = organism,
                                                res_column = res_column, keep_empty = keep_empty, 
                                                reviewed = reviewed, rev_con = rev_con)
 filtered_data <- filtered_results$Modified_Data
