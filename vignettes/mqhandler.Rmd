@@ -79,13 +79,6 @@ filtered_data <- filtered_results$Modified_Data
 One might be interested to know how many IDs were filtered out, in total and per row. Therefore, with this call, you can generate 2 data frames that display this information as a table.
 
 #### 1.4 Inspect Logging
-```{r}
-DT::datatable(filtered_results$Overview_Log)
-```
-
-```{r}
-DT::datatable(filtered_results$Detailed_Log)
-```
 
 ```{r}
 mqhandleR::create_overview_plot(logging = filtered_results$Overview_Log)
