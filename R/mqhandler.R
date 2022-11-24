@@ -38,10 +38,12 @@
 filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = FALSE, 
                                keep_empty = FALSE, res_column = NULL, reviewed = TRUE) {
   mq <- import("mqhandler")
-  return(mq$filter_ids$filter_protein_ids(data = data, protein_column = protein_column, 
-                                          organism = organism, rev_con = rev_con, 
-                                          keep_empty = keep_empty, res_column = res_column,
-                                          reviewed = reviewed))
+  mq_res <- mq$filter_ids$filter_protein_ids(data = data, protein_column = protein_column, 
+                                             organism = organism, rev_con = rev_con, 
+                                             keep_empty = keep_empty, res_column = res_column,
+                                             reviewed = reviewed)
+  return(list("Modified_Data" = mq_res[[1]], "Overview_Log" = mq_res[[2]]$Overview_Log, 
+              "Detailed_Log" = mq_res[[2]]$Detailed_Log))
 }
 
 ## Remap Gene Names ----
@@ -69,13 +71,15 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = 
 #'
 #' @return remapped Dataframe
 #' @export
-remap_genenames <- function(data, mode, protein_column, gene_column, res_column = NULL,
+remap_genenames <- function(data, mode, protein_column, gene_column = "Gene Names", res_column = NULL,
                             skip_filled = FALSE, organism = NULL, fasta = NULL, keep_empty = FALSE){
   mq <- import("mqhandler")
-  return(mq$remap_genenames$remap_genenames(data = data, mode = mode, protein_column = protein_column,
-                                            gene_column = gene_column, res_column = res_column,
-                                            skip_filled = skip_filled, organism = organism,
-                                            fasta = fasta, keep_empty = keep_empty))
+  mq_res <- mq$remap_genenames$remap_genenames(data = data, mode = mode, protein_column = protein_column,
+                                               gene_column = gene_column, res_column = res_column,
+                                               skip_filled = skip_filled, organism = organism,
+                                               fasta = fasta, keep_empty = keep_empty)
+  return(list("Modified_Data" = mq_res[[1]], "Overview_Log" = mq_res[[2]]$Overview_Log, 
+              "Detailed_Log" = mq_res[[2]]$Detailed_Log))
 }
 
 ## Reduce Gene Names ----
@@ -104,9 +108,11 @@ remap_genenames <- function(data, mode, protein_column, gene_column, res_column 
 reduce_genenames <- function(data, mode, gene_column, organism, 
                             res_column = NULL, keep_empty = FALSE, HGNC_mode = "mostfrequent"){
   mq <- import("mqhandler")
-  return(mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
-                                              res_column = res_column, keep_empty = keep_empty, 
-                                              organism = organism, HGNC_mode = HGNC_mode))
+  mq_res <- mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
+                                                 res_column = res_column, keep_empty = keep_empty, 
+                                                 organism = organism, HGNC_mode = HGNC_mode)
+  return(list("Modified_Data" = mq_res[[1]], "Overview_Log" = mq_res[[2]]$Overview_Log, 
+              "Detailed_Log" = mq_res[[2]]$Detailed_Log))
 }
 
 ## Map Orthologs ----
@@ -125,11 +131,13 @@ reduce_genenames <- function(data, mode, gene_column, organism,
 #' @return dataframe with orthologs
 #' @export
 map_orthologs <- function(data, gene_column, organism, tar_organism,
-                          res_column, keep_empty) {
+                          res_column = NULL, keep_empty = FALSE) {
   mq <- import("mqhandler")
-  return(mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
-                                        organism = organism, tar_organism = tar_organism,
-                                        res_column = res_column, keep_empty = keep_empty))
+  mq_res <- mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
+                                           organism = organism, tar_organism = tar_organism,
+                                           res_column = res_column, keep_empty = keep_empty))
+  return(list("Modified_Data" = mq_res[[1]], "Overview_Log" = mq_res[[2]]$Overview_Log, 
+              "Detailed_Log" = mq_res[[2]]$Detailed_Log))
 }
 
 # Smaller functions ----
