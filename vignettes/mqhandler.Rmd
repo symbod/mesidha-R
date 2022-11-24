@@ -80,9 +80,17 @@ One might be interested to know how many IDs were filtered out, in total and per
 
 #### 1.4 Inspect Logging
 ```{r}
-mqhandleR::create_overview_plot(logging = filtered_results$Overview_Log)
+DT::datatable(filtered_results$Overview_Log)
 ```
 
+```{r}
+DT::datatable(filtered_results$Detailed_Log)
+```
+
+```{r}
+mqhandleR::create_overview_plot(logging = filtered_results$Overview_Log)
+mqhandleR::create_filter_detailed_plot(logging = filtered_results$Detailed_Log, organism = organism, reviewed = reviewed, decoy = rev_con)
+```
 
 ## 2. Remap Gene Names
 
@@ -123,10 +131,11 @@ res_column = "Remapped Gene Names" # Name of column for remap gene names results
 #### 2.3 Run remap_genenames 
 ```{r}
 # TODO log information
-remapped_data <- remap_genenames(data = data, mode = mode, protein_column = protein_column, 
-                                 gene_column = gene_column, res_column = res_column,
-                                 skip_filled = skip_filled, keep_empty = keep_empty,
-                                 organism = organism, fasta = fasta)
+remapped_results <- mqhandler::remap_genenames(data = data, mode = mode, protein_column = protein_column, 
+                                               gene_column = gene_column, res_column = res_column,
+                                               skip_filled = skip_filled, keep_empty = keep_empty,
+                                               organism = organism, fasta = fasta)
+remapped_data <- filtered_results$Modified_Data
 ```
 
 #### 2.4 Inspect Logging
