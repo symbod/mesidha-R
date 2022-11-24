@@ -42,7 +42,7 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = 
                                              organism = organism, rev_con = rev_con, 
                                              keep_empty = keep_empty, res_column = res_column,
                                              reviewed = reviewed)
-  return(list("Modified_Data" = reticulate::py_to_r(mq_res[[1]]), 
+  return(list("Modified_Data" = mq_res[[1]], 
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
 }
@@ -79,7 +79,7 @@ remap_genenames <- function(data, mode, protein_column, gene_column = "Gene Name
                                                gene_column = gene_column, res_column = res_column,
                                                skip_filled = skip_filled, organism = organism,
                                                fasta = fasta, keep_empty = keep_empty)
-  return(list("Modified_Data" = reticulate::py_to_r(mq_res[[1]]), 
+  return(list("Modified_Data" = mq_res[[1]], 
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
 }
@@ -113,7 +113,7 @@ reduce_genenames <- function(data, mode, gene_column, organism,
   mq_res <- mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
                                                  res_column = res_column, keep_empty = keep_empty, 
                                                  organism = organism, HGNC_mode = HGNC_mode)
-  return(list("Modified_Data" = reticulate::py_to_r(mq_res[[1]]), 
+  return(list("Modified_Data" = mq_res[[1]], 
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
 }
@@ -157,5 +157,5 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
 #' @export
 grep_header_info <- function(fasta) {
   mq <- import("mqhandler")
-  return(reticulate::py_to_r(mq$fasta_grepper$grep_header_info(fasta)))
+  return(mq$fasta_grepper$grep_header_info(fasta))
 }
