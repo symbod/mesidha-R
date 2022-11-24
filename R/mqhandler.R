@@ -139,7 +139,7 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
   mq_res <- mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
                                            organism = organism, tar_organism = tar_organism,
                                            res_column = res_column, keep_empty = keep_empty)
-  return(list("Modified_Data" = reticulate::py_to_r(mq_res[[1]]), 
+  return(list("Modified_Data" = mq_res[[1]], 
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
 }
