@@ -38,10 +38,14 @@
 filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = FALSE, 
                                keep_empty = FALSE, res_column = NULL, reviewed = TRUE) {
   mq <- import("mqhandler")
-  mq_res <- mq$filter_ids$filter_protein_ids(data = data, protein_column = protein_column, 
+  mq_res <- mq$filter_ids$filter_protein_ids(data = reticulate::r_to_py(data), protein_column = protein_column, 
                                              organism = organism, rev_con = rev_con, 
-                                             keep_empty = keep_empty, res_column = res_column,
+                                             keep_empty = keep_empty, res_column = NULL,
                                              reviewed = reviewed)
+  if (!is.null(res_column)) {
+    mq_res[[1]][[res_column]]=mq_res[[1]][[protein_column]]
+    mq_res[[1]][[protein_column]]=data[[protein_column]]
+  }
   return(list("Modified_Data" = mq_res[[1]], 
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
@@ -79,6 +83,10 @@ remap_genenames <- function(data, mode, protein_column, gene_column = "Gene Name
                                                gene_column = gene_column, res_column = res_column,
                                                skip_filled = skip_filled, organism = organism,
                                                fasta = fasta, keep_empty = keep_empty)
+  if (!is.null(res_column)) {
+    mq_res[[1]][[res_column]]=mq_res[[1]][[gene_column]]
+    mq_res[[1]][[gene_column]]=data[[gene_column]]
+  }
   return(list("Modified_Data" = mq_res[[1]], 
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
@@ -113,6 +121,10 @@ reduce_genenames <- function(data, mode, gene_column, organism,
   mq_res <- mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
                                                  res_column = res_column, keep_empty = keep_empty, 
                                                  organism = organism, HGNC_mode = HGNC_mode)
+  if (!is.null(res_column)) {
+    mq_res[[1]][[res_column]]=mq_res[[1]][[gene_column]]
+    mq_res[[1]][[gene_column]]=data[[gene_column]]
+  }
   return(list("Modified_Data" = mq_res[[1]], 
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
@@ -139,6 +151,10 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
   mq_res <- mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
                                            organism = organism, tar_organism = tar_organism,
                                            res_column = res_column, keep_empty = keep_empty)
+  if (!is.null(res_column)) {
+    mq_res[[1]][[res_column]]=mq_res[[1]][[gene_column]]
+    mq_res[[1]][[gene_column]]=data[[gene_column]]
+  }
   return(list("Modified_Data" = mq_res[[1]], 
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
