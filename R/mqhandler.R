@@ -4,6 +4,7 @@
 ## Load R libraries ----
 
 .onLoad <- function(libname, pkgname) {
+  if (!requireNamespace("reticulate", quietly = TRUE)) install.packages("reticulate")
   library("reticulate", character.only = TRUE, quietly = TRUE)
   reticulate::configure_environment(pkgname)
   ## Load python library ----
