@@ -14,7 +14,7 @@
   })
   reticulate::configure_environment(pkgname)
   ## Load python library ----
-  py_install("mqhandler", pip = TRUE, ignore_installed=TRUE, python_version="0.0.22")
+  py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
 }
 
 # Main functions ----
