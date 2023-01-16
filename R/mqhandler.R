@@ -14,7 +14,7 @@
   })
   reticulate::configure_environment(pkgname)
   ## Load python library ----
-  py_install("mqhandler", pip = TRUE, ignore_installed=TRUE, python_version="0.0.22")
+  py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
 }
 
 # Main functions ----
@@ -87,9 +87,10 @@ remap_genenames <- function(data, mode, protein_column, gene_column = "Gene Name
                             skip_filled = FALSE, organism = NULL, fasta = NULL, keep_empty = FALSE){
   mq <- import("mqhandler")
   mq_res <- mq$remap_genenames$remap_genenames(data = data, mode = mode, protein_column = protein_column,
-                                               gene_column = gene_column, res_column = res_column,
+                                               gene_column = gene_column, res_column = NULL,
                                                skip_filled = skip_filled, organism = organism,
                                                fasta = fasta, keep_empty = TRUE)
+  mq_res[[1]][[protein_column]]=data[[protein_column]]
   if (!is.null(res_column)) {
     mq_res[[1]][[res_column]]=mq_res[[1]][[gene_column]]
     mq_res[[1]][[gene_column]]=data[[gene_column]]
@@ -133,7 +134,7 @@ reduce_genenames <- function(data, mode, gene_column, organism,
                             res_column = NULL, keep_empty = FALSE, HGNC_mode = "mostfrequent"){
   mq <- import("mqhandler")
   mq_res <- mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
-                                                 res_column = res_column, keep_empty = TRUE, 
+                                                 res_column = NULL, keep_empty = TRUE, 
                                                  organism = organism, HGNC_mode = HGNC_mode)
   if (!is.null(res_column)) {
     mq_res[[1]][[res_column]]=mq_res[[1]][[gene_column]]
@@ -171,7 +172,7 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
   mq <- import("mqhandler")
   mq_res <- mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
                                            organism = organism, tar_organism = tar_organism,
-                                           res_column = res_column, keep_empty = TRUE)
+                                           res_column = NULL, keep_empty = TRUE)
   if (!is.null(res_column)) {
     mq_res[[1]][[res_column]]=mq_res[[1]][[gene_column]]
     mq_res[[1]][[gene_column]]=data[[gene_column]]
@@ -187,6 +188,26 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
               "Overview_Log" = reticulate::py_to_r(mq_res[[2]]$Overview_Log), 
               "Detailed_Log" = reticulate::py_to_r(mq_res[[2]]$Detailed_Log)))
 }
+
+# Meta Analysis ----
+
+## Intersection Analysis ----
+
+#' Title Count Intersections
+#'
+#' @param data 
+#' @param threshold 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+count_intersections <- function(data, threshold=1) {
+  mq <- import("mqhandler")
+  return(mq$intersection_analysis$count_intersection(data = data, 
+                                                     threshold=threshold))
+}
+
 
 # Smaller functions ----
 

@@ -22,7 +22,7 @@ Config/reticulate:
 URL: https://github.com/symbod/MaxQuantHandler-R
 BugReports: https://github.com/symbod/MaxQuantHandler-R/issues
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests: 
     knitr,
     rmarkdown
