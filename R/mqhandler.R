@@ -6,13 +6,15 @@
 .onLoad <- function(libname, pkgname) {
   # Load required libraries ----
   suppressPackageStartupMessages({
-    required_packages <- c("data.table","ggplot2", "dplyr", "reticulate")
+    required_packages <- c("data.table","ggplot2", "dplyr")
     for(package in required_packages){
       if(!require(package,character.only = TRUE, quietly = TRUE)) install.packages(package, dependencies = TRUE, quietly = TRUE)
       library(package, character.only = TRUE, quietly = TRUE)
     }
   })
   reticulate::configure_environment(pkgname)
+  reticulate::virtualenv_create(envname = pkgname, 
+                                python= 'python3.8')
   ## Load python library ----
   py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
 }
@@ -37,7 +39,7 @@
 #' @export
 filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = FALSE, 
                                keep_empty = FALSE, res_column = NULL, reviewed = TRUE) {
-  mq <- import("mqhandler")
+  mq <- reticulate::import("mqhandler")
   mq_res <- mq$filter_ids$filter_protein_ids(data = data, protein_column = protein_column, 
                                              organism = organism, rev_con = rev_con, 
                                              keep_empty = TRUE, res_column = NULL,
@@ -85,7 +87,7 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = 
 #' @export
 remap_genenames <- function(data, mode, protein_column, gene_column = "Gene Names", res_column = NULL,
                             skip_filled = FALSE, organism = NULL, fasta = NULL, keep_empty = FALSE){
-  mq <- import("mqhandler")
+  mq <- reticulate::import("mqhandler")
   mq_res <- mq$remap_genenames$remap_genenames(data = data, mode = mode, protein_column = protein_column,
                                                gene_column = gene_column, res_column = NULL,
                                                skip_filled = skip_filled, organism = organism,
@@ -132,7 +134,7 @@ remap_genenames <- function(data, mode, protein_column, gene_column = "Gene Name
 #' @export
 reduce_genenames <- function(data, mode, gene_column, organism, 
                             res_column = NULL, keep_empty = FALSE, HGNC_mode = "mostfrequent"){
-  mq <- import("mqhandler")
+  mq <- reticulate::import("mqhandler")
   mq_res <- mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
                                                  res_column = NULL, keep_empty = TRUE, 
                                                  organism = organism, HGNC_mode = HGNC_mode)
@@ -169,7 +171,7 @@ reduce_genenames <- function(data, mode, gene_column, organism,
 #' @export
 map_orthologs <- function(data, gene_column, organism, tar_organism,
                           res_column = NULL, keep_empty = FALSE) {
-  mq <- import("mqhandler")
+  mq <- reticulate::import("mqhandler")
   mq_res <- mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
                                            organism = organism, tar_organism = tar_organism,
                                            res_column = NULL, keep_empty = TRUE)
@@ -203,7 +205,7 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
 #'
 #' @examples
 count_intersections <- function(data, threshold=1) {
-  mq <- import("mqhandler")
+  mq <- reticulate::import("mqhandler")
   return(mq$intersection_analysis$count_intersection(data = data, 
                                                      threshold=threshold))
 }
