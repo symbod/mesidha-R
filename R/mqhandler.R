@@ -211,6 +211,21 @@ count_intersections <- function(data, threshold=1) {
 }
 
 
+
+#' Title Inspect for Drugs
+#'
+#' @param genes 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+inspect_for_drugs <- function(genes) {
+  mq <- reticulate::import("mqhandler")
+  return(mq$intersection_analysis$inspect_for_drugs(genes = genes))
+}
+
+
 # Smaller functions ----
 
 #' @title Grep Header Information
