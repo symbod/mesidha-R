@@ -16,7 +16,7 @@
   reticulate::virtualenv_create(envname = pkgname, 
                                 python= 'python3.8')
   ## Load python library ----
-  py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
+  reticulate::py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
 }
 
 # Main functions ----
