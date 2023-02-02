@@ -1,5 +1,5 @@
-# MaxQuantHandler-R 
-R Wrapper for mqhandler python package
+# proharmed-R 
+R Wrapper for proharmed python package
 
 ## Introduction
 
