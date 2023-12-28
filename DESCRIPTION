@@ -1,7 +1,7 @@
 Package: proharmed
 Type: Package
-Title: Package for queries of python package mqhandler
-Description: Package for queries of python package mqhandler.
+Title: Package for queries of python package proharmed
+Description: Package for queries of python package proharmed.
 Version: 0.0.14
 Authors@R: c(
     person("Klaudia", "Adamowicz", email = "klaudia.adamowicz.91@gmail.com", role = c("aut", "cre")),

@@ -1,10 +1,10 @@
 ---
-title: "proharmed - R Package for the python package mqhandler"
+title: "proharmed - R Package for the python package proharmed"
 author: Klaudia Adamowicz
 
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{mqhandler}
+  %\VignetteIndexEntry{proharmed}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
