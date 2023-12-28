@@ -16,7 +16,7 @@
                                 #python= 'python3.8')
   #reticulate::use_virtualenv(pkgname)
   ## Load python library ----
-  reticulate::py_install("proharmed", pip = TRUE, ignore_installed=TRUE)
+  reticulate::py_install("proharmed", pip = TRUE, ignore_installed=FALSE)
 }
 
 # Main functions ----
