@@ -1,5 +1,5 @@
 ---
-title: "mqhandleR - R Package for the python package mqhandler"
+title: "proharmed - R Package for the python package mqhandler"
 author: Klaudia Adamowicz
 
 output: rmarkdown::html_vignette
@@ -32,9 +32,9 @@ knitr::opts_chunk$set(
 ```{r loading, include=TRUE, warning=FALSE, message=FALSE}
   # Install mqhandleR from github and build vignettes
   if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
-  devtools::install_github("symbod/MaxQuantHandler-R", build_vignettes = TRUE, dependencies = TRUE)
+  devtools::install_github("symbod/proharmed-R", build_vignettes = TRUE, dependencies = TRUE)
   # Load and attach mqhandleR 
-  library("mqhandleR")
+  library("proharmed")
 ```
 
 ## 1. Filter Protein IDs

@@ -16,7 +16,7 @@
                                 #python= 'python3.8')
   reticulate::use_virtualenv(pkgname)
   ## Load python library ----
-  reticulate::py_install("mqhandler", pip = TRUE, ignore_installed=TRUE)
+  reticulate::py_install("proharmed", pip = TRUE, ignore_installed=TRUE)
 }
 
 # Main functions ----
@@ -39,7 +39,7 @@
 #' @export
 filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = FALSE, 
                                keep_empty = FALSE, res_column = NULL, reviewed = TRUE) {
-  mq <- reticulate::import("mqhandler")
+  mq <- reticulate::import("proharmed")
   mq_res <- mq$filter_ids$filter_protein_ids(data = data, protein_column = protein_column, 
                                              organism = organism, rev_con = rev_con, 
                                              keep_empty = TRUE, res_column = NULL,
@@ -87,7 +87,7 @@ filter_protein_ids <- function(data, protein_column, organism = NULL, rev_con = 
 #' @export
 remap_genenames <- function(data, mode, protein_column, gene_column = "Gene Names", res_column = NULL,
                             skip_filled = FALSE, organism = NULL, fasta = NULL, keep_empty = FALSE){
-  mq <- reticulate::import("mqhandler")
+  mq <- reticulate::import("proharmed")
   mq_res <- mq$remap_genenames$remap_genenames(data = data, mode = mode, protein_column = protein_column,
                                                gene_column = gene_column, res_column = NULL,
                                                skip_filled = skip_filled, organism = organism,
@@ -134,7 +134,7 @@ remap_genenames <- function(data, mode, protein_column, gene_column = "Gene Name
 #' @export
 reduce_genenames <- function(data, mode, gene_column, organism, 
                             res_column = NULL, keep_empty = FALSE, HGNC_mode = "mostfrequent"){
-  mq <- reticulate::import("mqhandler")
+  mq <- reticulate::import("proharmed")
   mq_res <- mq$reduce_genenames$reduce_genenames(data = data, mode = mode, gene_column = gene_column,
                                                  res_column = NULL, keep_empty = TRUE, 
                                                  organism = organism, HGNC_mode = HGNC_mode)
@@ -171,7 +171,7 @@ reduce_genenames <- function(data, mode, gene_column, organism,
 #' @export
 map_orthologs <- function(data, gene_column, organism, tar_organism,
                           res_column = NULL, keep_empty = FALSE) {
-  mq <- reticulate::import("mqhandler")
+  mq <- reticulate::import("proharmed")
   mq_res <- mq$map_orthologs$map_orthologs(data = data, gene_column = gene_column, 
                                            organism = organism, tar_organism = tar_organism,
                                            res_column = NULL, keep_empty = TRUE)
@@ -205,7 +205,7 @@ map_orthologs <- function(data, gene_column, organism, tar_organism,
 #'
 #' @examples
 count_intersections <- function(data, threshold=1) {
-  mq <- reticulate::import("mqhandler")
+  mq <- reticulate::import("proharmed")
   return(mq$intersection_analysis$count_intersection(data = data, 
                                                      threshold=threshold))
 }
@@ -221,7 +221,7 @@ count_intersections <- function(data, threshold=1) {
 #'
 #' @examples
 inspect_for_drugs <- function(genes) {
-  mq <- reticulate::import("mqhandler")
+  mq <- reticulate::import("proharmed")
   return(mq$intersection_analysis$inspect_for_drugs(genes = genes))
 }
 
@@ -238,6 +238,6 @@ inspect_for_drugs <- function(genes) {
 #' @return a Dataframe with the collected information
 #' @export
 grep_header_info <- function(fasta) {
-  mq <- import("mqhandler")
+  mq <- import("proharmed")
   return(mq$fasta_grepper$grep_header_info(fasta))
 }
